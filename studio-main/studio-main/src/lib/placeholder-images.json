@@ -1,0 +1,52 @@
+{
+  "placeholderImages": [
+    {
+      "id": "mobile-app-1",
+      "description": "A mobile application for fintech services on a smartphone.",
+      "imageUrl": "https://images.unsplash.com/photo-1601972602237-8c79241e468b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2JpbGUlMjBhcHB8ZW58MHx8fHwxNzY0NDE2NDE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mobile app"
+    },
+    {
+      "id": "mobile-app-2",
+      "description": "A social networking mobile app interface.",
+      "imageUrl": "https://images.unsplash.com/photo-1551650975-87deedd944c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb2JpbGUlMjBhcHB8ZW58MHx8fHwxNzY0NDE2NDE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mobile app"
+    },
+    {
+      "id": "website-1",
+      "description": "A modern e-commerce website dashboard.",
+      "imageUrl": "https://images.unsplash.com/photo-1694878982063-9c41c1d94f4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3ZWJzaXRlJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc2NDQxMjIyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "website interface"
+    },
+    {
+      "id": "website-2",
+      "description": "Analytics dashboard for a corporate website.",
+      "imageUrl": "https://images.unsplash.com/photo-1600469984476-c713650f1b1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3ZWJzaXRlJTIwYW5hbHl0aWNzfGVufDB8fHx8MTc2NDQ0OTYxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "website analytics"
+    },
+    {
+      "id": "design-1",
+      "description": "Abstract geometric design for a brand identity project.",
+      "imageUrl": "https://images.unsplash.com/photo-1636955779321-819753cd1741?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWJzdHJhY3QlMjBkZXNpZ258ZW58MHx8fHwxNzY0MzUzNTI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract design"
+    },
+    {
+      "id": "design-2",
+      "description": "Collection of branding assets including business cards and letterheads.",
+      "imageUrl": "https://images.unsplash.com/photo-1760510926216-d5fe00372ff0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxicmFuZGluZyUyMGFzc2V0c3xlbnwwfHx8fDE3NjQ0NDk2MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "branding assets"
+    },
+    {
+      "id": "ai-1",
+      "description": "An advanced AI robot concept.",
+      "imageUrl": "https://images.unsplash.com/photo-1673255745677-e36f618550d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxBSSUyMHJvYm90fGVufDB8fHx8MTc2NDM2MjM0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "AI robot"
+    },
+    {
+      "id": "ai-2",
+      "description": "Visualization of a neural network.",
+      "imageUrl": "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxuZXVyYWwlMjBuZXR3b3JrfGVufDB8fHx8MTc2NDM5MjU2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "neural network"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "entities": {
+    "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "Represents a service offered by the agency (Mobile Apps, Websites, Design Studio, AI Integration).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the service."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the service (e.g., Mobile Apps, Websites)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the service offerings, benefits, and features."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image associated with the service.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
+    },
+    "PortfolioItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PortfolioItem",
+      "type": "object",
+      "description": "Represents a project or case study in the agency's portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the portfolio item."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the portfolio item or project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the project, including its objectives, solutions, and outcomes."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the featured image for the portfolio item.",
+          "format": "uri"
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "Reference to the Service. (Relationship: Service 1:N PortfolioItem)"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "serviceId"
+      ]
+    },
+    "ContactFormSubmission": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactFormSubmission",
+      "type": "object",
+      "description": "Represents a submission from the client contact form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the form submission."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the person submitting the form."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the person submitting the form.",
+          "format": "email"
+        },
+        "projectDetails": {
+          "type": "string",
+          "description": "Detailed information about the project inquiry."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "Date and time when the form was submitted.",
+          "format": "date-time"
+        },
+        "service": {
+          "type": "string",
+          "description": "The service the user is interested in."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company of the person submitting the form."
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "projectDetails",
+        "submissionDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Stores details of each service offered. Document ID is the serviceId.",
+          "params": [
+            {
+              "name": "serviceId",
+              "description": "Unique identifier for the service."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/portfolio_items/{portfolioItemId}",
+        "definition": {
+          "entityName": "PortfolioItem",
+          "schema": {
+            "$ref": "#/backend/entities/PortfolioItem"
+          },
+          "description": "Stores portfolio items. Document ID is the portfolioItemId.",
+          "params": [
+            {
+              "name": "portfolioItemId",
+              "description": "Unique identifier for the portfolio item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/contact_form_submissions/{contactFormSubmissionId}",
+        "definition": {
+          "entityName": "ContactFormSubmission",
+          "schema": {
+            "$ref": "#/backend/entities/ContactFormSubmission"
+          },
+          "description": "Stores contact form submissions. Document ID is the contactFormSubmissionId.",
+          "params": [
+            {
+              "name": "contactFormSubmissionId",
+              "description": "Unique identifier for the contact form submission."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to store service information, portfolio items, and contact form submissions. It prioritizes structural segregation by storing each entity type in its own top-level collection. This approach allows for clear and simple security rules. Authorization independence is achieved as there are no dependencies between collections.\n\nThe structure supports the QAPs by storing each collection type at the root. Each collection will have its own security rules to enable secure list operations."
+  }
+}

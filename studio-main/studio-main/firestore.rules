@@ -1,0 +1,111 @@
+/**
+ * This ruleset enforces a security model for a public-facing agency website.
+ *
+ * Core Philosophy:
+ * The security model is designed for simplicity and clear separation of concerns.
+ * Public content (services, portfolio items) is globally readable, while content
+ * creation and management are locked down, awaiting a defined admin role. Sensitive
+ * data from contact forms is handled using a "write-only" drop-box pattern, where
+ * anyone can submit data, but no one can read it back via the client APIs.
+ *
+ * Data Structure:
+ * The data is organized into three distinct, top-level collections:
+ * - /services: Stores public information about agency offerings.
+ * - /portfolio_items: Stores public case studies and project examples.
+ * - /contact_form_submissions: A private collection for contact inquiries.
+ * This flat structure avoids complex relational security rules.
+ *
+ * Key Security Decisions:
+ * - Public Read-Only Content: The `/services` and `/portfolio_items` collections are
+ *   publicly readable by anyone, including unauthenticated users, to support the
+ *   website's public-facing nature. Writes are disabled until an administrative
+ *   role or ownership model is implemented.
+ * - Write-Only Drop-box: The `/contact_form_submissions` collection allows anyone
+ *   to create a document. However, all read and modification access is denied to
+ *   protect the sensitive personal information within the submissions. This data
+ *   is intended to be accessed only by backend processes or administrators with
+ *   privileged access.
+ * - No User Listing: There are no user-specific collections, and therefore no
+ *   rules that would permit listing users.
+ *
+ * Denormalization for Authorization:
+ * This ruleset does not currently require denormalization as there are no
+ * complex ownership or collaborative features. For future updates, adding an
+ * `adminId` or `ownerId` field to the `/services` and `/portfolio_items`
+ * documents would be the correct pattern to enable secure write operations.
+ *
+ * Structural Segregation:
+ * The use of separate top-level collections for public content and private
+ * submissions is a core design choice. This segregation provides strong security
+ * guarantees, preventing any possibility of private contact data being accidentally
+ * exposed in a public list query.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ----------------------------------------------------------------------
+    // Helper Functions
+    // ----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
+    // Collection Rules
+    // ----------------------------------------------------------------------
+
+    /**
+     * @description Controls access to public information about agency services.
+     *   This data is intended to be read by any visitor to the website.
+     * @path /services/{serviceId}
+     * @allow (get, list) Any user, signed in or not, can read service details.
+     * @deny (create, update, delete) All write operations are denied as there is no
+     *   defined admin or owner role to manage this content yet.
+     * @principle Public data should be readable by all, but writable by none
+     *   until an administrative role is explicitly defined.
+     */
+    match /services/{serviceId} {
+      allow get: if true;
+      allow list: if true;
+      // CRITICAL: Cannot implement owner-only writes. The 'Service' entity is missing an 'ownerId' or 'adminId' field.
+      allow create: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+      allow update: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+      allow delete: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+    }
+
+    /**
+     * @description Controls access to the agency's public portfolio items.
+     *   This data is intended to be read by any visitor to the website.
+     * @path /portfolio_items/{portfolioItemId}
+     * @allow (get, list) Any user, signed in or not, can read portfolio items.
+     * @deny (create, update, delete) All write operations are denied as there is no
+     *   defined admin or owner role to manage this content yet.
+     * @principle Public data should be readable by all, but writable by none
+     *   until an administrative role is explicitly defined.
+     */
+    match /portfolio_items/{portfolioItemId} {
+      allow get: if true;
+      allow list: if true;
+      // CRITICAL: Cannot implement owner-only writes. The 'PortfolioItem' entity is missing an 'ownerId' or 'authorId' field.
+      allow create: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+      allow update: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+      allow delete: if false; // TODO: Add admin role validation once the schema is updated with an ownership field.
+    }
+
+    /**
+     * @description Manages submissions from the public contact form. This
+     *   collection acts as a secure "drop-box".
+     * @path /contact_form_submissions/{contactFormSubmissionId}
+     * @allow (create) Any user, including anonymous visitors, can submit a form.
+     * @deny (get, list, update, delete) All users are blocked from reading or
+     *   modifying any submissions to protect submitters' privacy.
+     * @principle Implements a "write-only" pattern to securely collect sensitive
+     *   information without exposing it to any client-side users.
+     */
+    match /contact_form_submissions/{contactFormSubmissionId} {
+      allow create: if true;
+      allow get: if false;
+      allow list: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
